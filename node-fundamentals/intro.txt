@@ -1,0 +1,9 @@
+//Ryan Dhal
+
+Node.js is a platform to run JavaScript Programs. 
+It is build on the top of V8 Engine.
+It is fully made up of modules. 
+It supports 3 types of modules
+1. Inbuilt Modules
+2. User Defined Modules
+3. Third Party Modules(packages can be downloaded from npmjs.com via node package manager (npm))

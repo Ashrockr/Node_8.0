@@ -1,0 +1,144 @@
+Big Data
+Highly Unpredictable, Huge Volumes of Data we need NO SQL Databases
+1. Structured
+2. Semi-Structured
+3. Un-Structured
+
+No SQL Categories
+1. Key-Value Based - Redis
+2. Column Based - Cassandra, H-Base
+3. Graphical Based - Neo4j
+4. Document based - MongoDB, Couch DB
+
+
+SQL - Database -> Tables -> Records - > Fields
+MongoDB - Database -> Collection -> Documents -> Fields
+
+Legends
+----------
+:\>  Command Terminal
+
+> Mongo Shell
+
+To start the mongodb service
+----------------------------
+:\> mongodstart
+
+
+Queries
+-------
+
+/*To  start the mongo shell*/
+:\> mongo 
+
+/*To check currently selected database*/
+> db
+
+/*To list the databases which has atleast one collection in it*/
+> show dbs
+
+/*To create / select the  databases*/
+> use SampleDB
+
+/* To drop the  database */
+> db.dropDatabase()
+
+/* To  quit from mongo shell */
+> quit()
+
+/* To import the  collection  to database */
+:\> mongoimport --db SampleDB --collection locations --file locations.json
+
+/* To export the  collection from database */
+:\> mongoexport --db SampleDB  --collection locations --out locationsBackup.json
+
+
+/* To connect DB using mongo Command*/
+:\> mongo SampleDB
+
+/*To list the Collection under SampleDB*/
+> show collections
+
+/*To query all data from MongoDB collection*/
+> db.locations.find()
+> db.locations.find().pretty()
+
+/*To query data based on criteria from MongoDB collection*/
+> db.locations.find({ _id : { $gte : 3 , $lte : 6 }})
+
+/*To return a single document first document from collection*/
+> db.locations.findOne()
+
+/*To insert a document(s) to a collection*/
+> db.locations.insert({_id  : 8,location : 'Delhi' })
+
+> db.locations.insert([{_id : 9, location : 'Calcutta' },{_id : 10, location : 'Mysore' }])
+
+
+
+> db.locations.find
+
+
+
+/*To update a document(s) to a collection*/
+> db.locations.update({ _id : 9 },{ $set : { location : 'Kolkatta' } })
+
+
+> db.locations.find({ _id : 9 })
+
+/*To rename a field from collection (for all documents)*/
+
+> db.locations.update({ },{$rename : {'location' : 'city'} },{ upsert :  false, multi : true } )
+
+
+> db.locations.find()
+
+/*To rename a field from collection (for a particular document)*/
+> db.locations.update({ _id:9},{$rename : {'city' : 'location'} } )
+
+
+> db.locations.find()
+
+/*To delete a field from collection (for a particular document)*/
+> db.locations.update({ _id:9},{$unset : {'location':''} } )
+> db.locations.find()
+
+
+
+/*To delete a document from collection */
+> db.locations.remove({ _id:9})
+
+
+> db.locations.find()
+
+/*To drop a collection */
+> db.locations.drop();
+
+> show collections
+> db.dropDatabase()
+> quit()
+
+To Shutdown the mongod service
+-------------------------------
+> use admin
+> db.shutdownServer() 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
