@@ -1,0 +1,25 @@
+{
+  "name": "mocha-chai-supertest-istanbul",
+  "version": "1.0.0",
+  "description": "mocha-chai-supertest-istanbul demo by Karthik M",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node server",
+    "test": "mocha",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha"
+  },
+  "author": "Karthik M",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "supertest": "^3.1.0"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

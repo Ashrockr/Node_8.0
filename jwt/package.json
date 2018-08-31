@@ -1,0 +1,19 @@
+{
+  "name": "jwt",
+  "version": "1.0.0",
+  "description": "JSON WEB Token Demo by Karthik M",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "author": "Karthik M",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
+}

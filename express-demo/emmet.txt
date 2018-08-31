@@ -1,0 +1,18 @@
+
+<!-- Emmet Plugin wich is used to scaffold HTML Code -->
+<!-- !(TAB) : HTML5 boiler plate code -->
+<!-- html>head>title{Express}^body>p{Express} -->
+<!-- p{Express-$}*5 -->
+<!--p{Para}+p#main{Para with id}+p.sty{Para with class}+p[data-company="capgemini"]{Para with attribute}-->
+<!-- table>(tr>td{td-$}*3)*3 -->
+
+
+To create Express Application using express-generator
+
+install express-generator as global module
+
+:\> npm install -g express-generator
+
+Create Express Application
+
+:\> express <application-name>

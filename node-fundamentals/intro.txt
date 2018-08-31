@@ -7,3 +7,124 @@ It supports 3 types of modules
 1. Inbuilt Modules
 2. User Defined Modules
 3. Third Party Modules(packages can be downloaded from npmjs.com via node package manager (npm))
+
+Third Party Modules :
+Node has a vibrant community who develops lot of utilities as Modules and put it in a the repository
+(npmjs.com). We can download  / install the packages using node package manager(npm)
+
+3rd Party modules can be installed as Global module  / Project module
+
+Global module 
+---------------
+It can be used by any of the node projects in that system
+
+syntax : 
+    npm install -g <packagename>
+
+1. rimraf (It is used to delete the files and subfolders)  
+D:\Users\karmuthu\Desktop\node8.0\node-fundamentals>npm install -g rimraf
+d:\nodejs\rimraf -> d:\nodejs\node_modules\rimraf\bin.js
++ rimraf@2.6.2
+updated 2 packages in 4.782s
+
+D:\Users\karmuthu\Desktop\node8.0\node-fundamentals>mkdir test
+D:\Users\karmuthu\Desktop\node8.0\node-fundamentals>rimraf test
+
+2. typescript (will compile the code from ES2015 to ES5)
+D:\Users\karmuthu\Desktop\node8.0\node-fundamentals>npm install -g typescript
+d:\nodejs\tsserver -> d:\nodejs\node_modules\typescript\bin\tsserver
+d:\nodejs\tsc -> d:\nodejs\node_modules\typescript\bin\tsc
++ typescript@3.0.1
+updated 1 package in 4.82s
+
+D:\Users\karmuthu\Desktop\node8.0\node-fundamentals>tsc foo.ts
+
+It will create foo.js(ES5)
+
+
+Project Module
+--------------
+It can be used only by that project which stores the modules in node_modules
+in the root of your project.
+
+Before installing project modules we need to create package.json 
+files which is used to store the details of the package installed in the current project.
+
+To create package.json
+-----------------------
+npm init -y (-y : force creation otherwise it will go through a questionarie to create package.json)
+
+
+1. Project Save Dependency (Core modules used in Development and production. packages get installed in node_modules)
+
+npm install -S <packagename> 
+
+
+It will add an entry in package.json under dependencies section
+
+D:\Users\karmuthu\Desktop\node8.0\node-fundamentals>npm install -S connect
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN node-fundamentals@1.0.0 No description
+npm WARN node-fundamentals@1.0.0 No repository field.
+
++ connect@3.6.6
+added 12 packages in 10.561s
+
+package.json
+-------------
+"dependencies": {
+    "connect": "^3.6.6"
+}
+
+2. Project Developer Dependency (development. packages get installed in node_modules)
+
+npm install -D <packagename> 
+
+It will add an entry in package.json under devDependencies section
+
+
+D:\Users\karmuthu\Desktop\node8.0\node-fundamentals>npm install -D chainpm WARN node-fundamentals@1.0.0 No descriptionnpm WARN node-fundamentals@1.0.0 No repository field.
++ chai@4.1.2
+added 7 packages in 3.074s
+
+"devDependencies": {
+    "chai": "^4.1.2"
+  }
+
+  To uninstall and remove the entry from package.json
+  npm uninstall -S | -D <packagename>
+
+
+  To install the packages specified in package.json
+  D:\Users\karmuthu\Desktop\node8.0\node-fundamentals>npm install
+
+  To install specific version 
+  npm install -S <packagename>@<version>
+
+  npm install -S connect@3.4.0
+
+  
+Package.json symbols
+--------------------
+"connect": "3.4.0" (major.minor.revisionnumber)
+version : Must match exact the version
+
+"connect": ">3.4.0" (Any Major, minor, changes)
+>version : Must be greater than 3.4.0 (latest version)
+
+"connect": "~3.4.0" (Any new Revisions)
+~version : Approximately equivalent 3.4.0 (will match all 3.4.x excluding 3.5.0 and 3.3.0)
+
+"connect": "^3.4.0" (Any minor,revision changes)
+^version : Compatible with version to 3.4.0 (will match all 3.4.x excluding 4.0.0 and above)
+
+package.lock.json file will have the exact version which are used in the code.
+
+
+
+
+
+
+
+
+

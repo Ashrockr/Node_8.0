@@ -1,0 +1,66 @@
+Unit Testing is nothing but breaking down the logic of our application in to small units and verifying that each unit works as we expected.
+
+TDD (Test Driven Development)
+TAD (Test After Development)
+
+
+BDD : Behavior Driven Development : It is a spcialized version of TDD which specifes what need to be tested in the perspective of business requirement
+
+
+TDD / TAD Vocabulary (Test Centric only developers can understand the terms)
+----------------------------------------------------------------------------
+
+class with testcases : TestSuite
+Methods to get execute before all the test cases  : TestFixureSetup
+Methods to get execute after all the test cases  : TestFixureTearDown
+Methods to get execute before each and every test case  : Setup
+Methods to get execute after each and every test case  : teardown
+Test case method is called as : Test
+
+
+BDD (Business Centric any one can understand the terms)
+----------------------------------------------------------------------------
+
+class with testcases : Describe
+Methods to get execute before all the test cases  : before
+Methods to get execute after all the test cases  : after
+Methods to get execute before each and every test case  : beforeEach
+Methods to get execute after each and every test case  : afterEach
+Test case method is called as : It
+
+Story : Registered User need to login into the system.When he supply the valid credentials he can access the home page else stay in login page
+
+Valid Login Scenario (GWT) :
+Given:
+	The User is in login page
+	And the user enters valid userid
+	And the user enter valid password
+When:
+	The user logs in
+Then:
+	User is redirected to home page 
+
+InValid Login Scenario(GWT) : 
+____________________________
+
+Given:
+	The User is in login page
+	And the user enters valid userid
+	And the user enter invalid password
+When:
+	The user logs in
+Then:
+	User is redirected to login page 
+
+SUT : System under Test
+
+Mocha (Testing Framework where we can write our test cases which follows both TDD and BDD Approach)
+
+Chai (Assertion Library TDD / BDD(Should,expect) )
+
+Istanbul : Code Coverage
+
+SuperTest : Test Http Endpoints
+
+
+
