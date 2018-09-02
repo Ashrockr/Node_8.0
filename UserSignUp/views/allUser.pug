@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    .container
+        .round-div.round-div-header.col-8.row.font-weight-bold
+            .col-6 Name
+            .col-6 Password
+        .round-div.row.col-8
+            each user in users
+                .col-6 #{user.name}
+                .col-6 #{user.password}
+                
+            

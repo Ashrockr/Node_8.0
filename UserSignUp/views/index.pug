@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  h1= title
+  .container
+    p Welcome to #{title}
+    .card.txt-white.bg-primary
+      .card-header.bg-primary.text-white Login
+      .car-body.container.bg-light
+        form.form(action="/users/login",method="post")
+          br
+          .form-group
+            label.text-primary Name
+            input.form-control(type="text", name="name")
+          .form-group
+            label.text-primary Password
+            input.form-control(type="text", name="password")
+          input.btn.btn-primary.btn-block(type="submit", value="Login")
+          br
+    br
+    br
+    .card.txt-white.bg-primary
+          .card-header.bg-primary.text-white SignUp
+          .car-body.container.bg-light
+            form.form(action="/users/signup",method="post")
+              br
+              .form-group
+                label.text-primary Name
+                input.form-control(type="text", name="name")
+              .form-group
+                label.text-primary Password
+                input.form-control(type="text", name="password")
+              input.btn.btn-primary.btn-block(type="submit", value="SignUp  ")
+              br
+        
+
