@@ -1,0 +1,21 @@
+<header class="row">
+  <div class="col-12 ">
+    <ul class="nav nav-tabs justify-content-end" role="tablist">
+        <li class="nav-item"><a class="nav-link " [routerLink]="[ '/login']"  routerLinkActive="active">Login</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="[ '/signup']"  routerLinkActive="active">Signup</a></li>
+    </ul>
+  </div>
+</header>
+<div class="container col-md-8 py-5">
+  <form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
