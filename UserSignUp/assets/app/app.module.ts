@@ -21,8 +21,8 @@ import { AuthGuard } from './auth/auth.guard';
     AdminComponent,
     UserComponent
   ],
-  imports: [ BrowserModule,routing,FormsModule,ReactiveFormsModule,HttpModule],
-  providers: [{provide: APP_BASE_HREF, useValue: '/'},AuthService,AuthGuard],
+  imports: [BrowserModule, routing, FormsModule, ReactiveFormsModule, HttpModule],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
