@@ -7,14 +7,15 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/login', function (req, res, next) {
+  console.log(req.body);
   User.findOne({
-    name: req.body.name
+    email: req.body.email
   }, (err, doc) => {
     if (err) {
       next(err);
     }
     if (!doc) {
-      res.json({
+      res.status(404).json({
         message: 'User not found'
       });
     }
@@ -30,13 +31,13 @@ router.post('/login', function (req, res, next) {
       var token = jwt.sign(payload, Configs.secret, {
         expiresIn: '1d'
       });
-      res.render('user', {
+      res.status(200).json({
         _id: doc._id,
         name: doc.name,
-        loggedMethod: 'Logged In',
+        isAdmin: doc.isAdmin,
         token: token
       });
-    }
+    }    
   });
 });
 
@@ -85,7 +86,7 @@ router.get('/allUser', (req, res, next) => {
       message: 'No Token was provided'
     });
   }
- 
+
 })
 
 module.exports = router;
