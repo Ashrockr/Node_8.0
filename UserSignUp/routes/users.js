@@ -7,7 +7,6 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/login', function (req, res, next) {
-  console.log(req.body);
   User.findOne({
     email: req.body.email
   }, (err, doc) => {
@@ -26,7 +25,8 @@ router.post('/login', function (req, res, next) {
     }
     else {
       var payload = {
-        name: doc.name
+        name: doc.name,
+        isAdmin: doc.isAdmin
       }
       var token = jwt.sign(payload, Configs.secret, {
         expiresIn: '1d'
@@ -34,6 +34,7 @@ router.post('/login', function (req, res, next) {
       res.status(200).json({
         _id: doc._id,
         name: doc.name,
+        email:doc.email,
         isAdmin: doc.isAdmin,
         token: token
       });
@@ -44,22 +45,26 @@ router.post('/login', function (req, res, next) {
 router.post('/signup', (req, res, next) => {
   var user = new User({
     name: req.body.name,
-    password: req.body.password
+    password: req.body.password,
+    email: req.body.email,
+    gender: req.body.gender
   });
   user.save((err, doc) => {
     if (err) {
       next(err);
     }
     var payload = {
-      name: user.name
+      email: user.email,
+      isAdmin: false
     }
     var token = jwt.sign(payload, Configs.secret, {
       expiresIn: '1d'
     });
-    res.render('user', {
+    res.status(201).json({
       _id: doc._id,
       name: doc.name,
-      loggedMethod: 'Signed Up',
+      email:doc.email,
+      isAdmin: doc.isAdmin,
       token: token
     });
   })
@@ -75,7 +80,7 @@ router.get('/allUser', (req, res, next) => {
       else {
         User.find((err, docs) => {
           if (err) throw err;
-          res.render('allUser', { users: docs, token: token });
+          res.status(200).json({ users: docs, token: token });
         });
       }
     })
