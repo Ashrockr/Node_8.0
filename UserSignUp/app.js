@@ -20,13 +20,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/users', usersRouter);
-app.use('/', indexRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  res.status(404).render('index',{
-    message : 'Invalid URL'
-  });
+app.use('/', function(req, res, next) {
+  res.render('index');
 });
 
 // error handler
