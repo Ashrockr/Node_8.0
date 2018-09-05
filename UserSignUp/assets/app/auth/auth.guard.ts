@@ -12,39 +12,29 @@ export class AuthGuard implements CanActivate {
         const role = route.data['role'];
         const userRole = localStorage.getItem('role');
         var token = localStorage.getItem('jwt-token');
-        let jwtHelper: JwtHelper = new JwtHelper();
-        const isTokenAlive = !jwtHelper.isTokenExpired(token);
-        if (token && isTokenAlive) {
-            if (userRole == 'ROLE_ADMIN' && role == 'ROLE_ADMIN') {
-                // logged in so return 
-                return true;
+
+        if (token) {
+            let jwtHelper: JwtHelper = new JwtHelper();
+            const isTokenAlive = !jwtHelper.isTokenExpired(token);
+            if (isTokenAlive) {
+                if (userRole == 'ROLE_ADMIN' && role == 'ROLE_ADMIN') {
+                    // logged in so return 
+                    return true;
+                }
+                else if (userRole == 'ROLE_OTHER' && role == 'ROLE_OTHER') {
+                    return true;
+                }
+                else if (userRole == 'ROLE_ADMIN' && role == 'ROLE_OTHER') {
+                    this.router.navigate(['/admin']);
+                    return false;
+                }
+                else if (userRole == 'ROLE_OTHER' && role == 'ROLE_ADMIN') {
+                    this.router.navigate(['/user']);
+                    return false;
+                }
             }
-            else if (userRole == 'ROLE_OTHER' && role == 'ROLE_OTHER') {
-                return true;
-            }
-            else if (userRole == 'ROLE_ADMIN' && role == 'ROLE_OTHER') {
-                this.router.navigate(['/admin']);
-                return false;
-            }
-            else if (userRole == 'ROLE_OTHER' && role == 'ROLE_ADMIN') {
-                this.router.navigate(['/user']);
-                return false;
-            }
-            else {
-                this.logoutUser();
-                return false;
-            }
-        }
-        else {
-            this.logoutUser();
-            return false;
         }
         // not logged in so redirect to login page
-        this.logoutUser();
-        return false;
-    }
-
-    logoutUser() {
         this.authService.logOut();
         this.router.navigate(['/login']);
     }

@@ -1,25 +1,63 @@
-<div class="container-fluid h-100">
-    <div class="row">
-        <div class="col-2 px-1 bg-dark " id="sticky-sidebar">
-            <div class="py-2 sticky-top">
-                <div class="nav flex-column">
-                    <div class="card  bg-dark border-0">
-                        <img class="card-img-top img-thumbnail rounded-circle h-auto" src="http://icons-for-free.com/free-icons/png/512/2203549.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                    <a href="" class="nav-link">Sidebar</a>
-                    <a href="" class="nav-link">Link</a>
-                    <a href="" class="nav-link">Link</a>
-                    <a href="" class="nav-link">Link</a>
-                    <a href="" class="nav-link">Link</a>
-                    <a href="" class="nav-link">Link</a>
-                </div>
-            </div>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Admin Sidebar</h3>
         </div>
-    </div>
+
+        <ul class="list-unstyled components">
+            <p>Welcome Admin</p>
+            <li *ngFor="let menu of menus" routerLinkActive="active">
+                <ng-container *ngIf="menu.subMenus!=undefined; else elseTemplate">
+                    <a [href]="'#'+menu.id" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{menu.name}}</a>
+                    <ul class="collapse list-unstyled" [id]="menu.id">
+                        <li *ngFor="let subMenu of menu.subMenus" routerLinkActive="active">
+                            <a [routerLink]="[ '/admin',subMenu.route ]">{{subMenu.name}}</a>
+                        </li>
+                    </ul>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <a [routerLink]="[ '/admin',menu.route ]">{{menu.name}}</a>
+                </ng-template>
+            </li>
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#">Home 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Portfolio</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
 </div>
