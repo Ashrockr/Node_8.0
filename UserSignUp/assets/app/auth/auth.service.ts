@@ -3,7 +3,7 @@ import { Http, Headers, Response } from "@angular/http";
 import { Observable } from "rxjs";
 import 'rxjs/Rx';
 
-import { User } from "../user.model";
+import { User } from "../models/user.model";
 import { CONFIGS } from "../configs";
 import { Router } from "@angular/router";
 
@@ -35,5 +35,12 @@ export class AuthService {
         localStorage.removeItem('jwt-token');
         localStorage.removeItem('role');
         this.router.navigate(['/login']);
+    }
+
+    isLoggedIn(){
+        if(localStorage.getItem('jwt-token') && localStorage.getItem('role') ){
+            return true;
+        }
+        return false;
     }
 }
