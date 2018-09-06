@@ -4,7 +4,7 @@ import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 
 import FormUtils from "../utils/FormUtils";
-import { User } from "../user.model";
+import { User } from "../models/user.model";
 import { AuthService } from "../auth/auth.service";
 
 var sd = String;
@@ -15,9 +15,15 @@ var sd = String;
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
 
-    constructor(private router: Router, private authService: AuthService,private title: Title) { }
+    constructor(private router: Router, private authService: AuthService, private title: Title) { }
 
     ngOnInit() {
+        if (this.authService.isLoggedIn()) {
+            if (localStorage.getItem('role') == 'ROLE_ADMIN')
+                this.router.navigate(['/admin']);
+            else
+                this.router.navigate(['/user']);
+        }
         this.title.setTitle('Login');
         this.loginForm = new FormGroup({
             email: new FormControl(null, [

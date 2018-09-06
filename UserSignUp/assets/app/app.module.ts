@@ -11,6 +11,7 @@ import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
+import { WelcomeComponent } from './admin/welcome/welcome.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AuthGuard } from './auth/auth.guard';
     LoginComponent,
     SignUpComponent,
     AdminComponent,
-    UserComponent
+    UserComponent,
+    WelcomeComponent
   ],
   imports: [BrowserModule, routing, FormsModule, ReactiveFormsModule, HttpModule],
   providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard],

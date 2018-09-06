@@ -7,21 +7,14 @@ p {
 }
 
 a, a:hover, a:focus {
-    color: inherit;
+    color: #b5c4cb;
     text-decoration: none;
-    transition: all 0.3s;
-}
-
-#sidebar {
-    /* don't forget to add all the previously mentioned styles here too */
-    background: #7386D5;
-    color: #fff;
     transition: all 0.3s;
 }
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
+    background: #1e282c;
 }
 
 #sidebar ul.components {
@@ -39,18 +32,18 @@ a, a:hover, a:focus {
     display: block;
 }
 #sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
+    color: #f0f0f0;
+    background: #1e282c;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #fff;
-    background: #6d7fcc;
+    color: #f0f0f0;
+    background: #1e282c;
 }
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #1e282c;
 }
 
 .wrapper {
@@ -64,11 +57,13 @@ ul ul a {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
-    z-index: 999;
-    background: #7386D5;
+    background: #222d32;
     color: #fff;
     transition: all 0.3s;
+}
+
+#content{
+    margin-left: 250px;
 }
 
 #sidebar.active {
@@ -85,3 +80,31 @@ a[data-toggle="collapse"] {
     right: 20px;
     transform: translateY(-50%);
 }
+
+.sidebar-menus{    
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.sidebar-menus::-webkit-scrollbar {
+	width: 17px;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.sidebar-menus::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+  }
+  
+  .sidebar-menus::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(98, 117, 199, 0.7);
+  }
+  
+  .sidebar-menus::-webkit-scrollbar-thumb:hover {
+    background: rgba(98, 117, 199,0.9);
+  }
+  
+  .sidebar-menus::-webkit-scrollbar-thumb:active {
+    background:  rgba(98, 117, 199,1);
+  }

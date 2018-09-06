@@ -15,7 +15,13 @@ export class AuthGuard implements CanActivate {
 
         if (token) {
             let jwtHelper: JwtHelper = new JwtHelper();
-            const isTokenAlive = !jwtHelper.isTokenExpired(token);
+            var isTokenAlive = false;
+            try{
+                isTokenAlive = !jwtHelper.isTokenExpired(token);
+            }
+            catch(err){
+                isTokenAlive = false;
+            }
             if (isTokenAlive) {
                 if (userRole == 'ROLE_ADMIN' && role == 'ROLE_ADMIN') {
                     // logged in so return 
