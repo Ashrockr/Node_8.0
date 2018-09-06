@@ -49,7 +49,6 @@ ul ul a {
 .wrapper {
     display: flex;
     align-items: stretch;
-    width: 100%;
 }
 
 #sidebar {

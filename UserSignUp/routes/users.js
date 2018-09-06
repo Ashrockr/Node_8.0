@@ -7,6 +7,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/login', function (req, res, next) {
+  console.log(req.body.email+''+req.body.password);
   User.findOne({
     email: req.body.email
   }, (err, doc) => {
@@ -43,6 +44,7 @@ router.post('/login', function (req, res, next) {
 });
 
 router.post('/signup', (req, res, next) => {
+  console.log(req.body.email+''+req.body.password);
   var user = new User({
     name: req.body.name,
     password: req.body.password,

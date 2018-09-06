@@ -10,7 +10,7 @@
             <div class="sidebar-menus">
                 <li *ngFor="let menu of menus" routerLinkActive="active">
                     <ng-container *ngIf="menu.subMenus.length!=0; else elseTemplate">
-                        <a [href]="'#'+menu.route" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{menu.name}}</a>
+                        <a [href]="'#'+menu.route" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >{{menu.name}}</a>
                         <ul class="collapse list-unstyled" [id]="menu.route" routerLinkActive="show">
                             <li *ngFor="let subMenu of menu.subMenus" routerLinkActive="active">
                                 <a [routerLink]="[ '/admin',subMenu.route ]">{{subMenu.name}}</a>

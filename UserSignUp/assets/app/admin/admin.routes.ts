@@ -6,6 +6,7 @@ export const ADMIN_ROUTES: Routes = [
     { path: 'welcome', component: WelcomeComponent },
     { path: 'addUser', component: WelcomeComponent },
     { path: 'addAdmin', component: WelcomeComponent },
+    { path: 'viewMessages', component: WelcomeComponent },
     { path: 'graph1', component: WelcomeComponent },
     { path: 'graph2', component: WelcomeComponent },
     { path: 'graph3', component: WelcomeComponent }
