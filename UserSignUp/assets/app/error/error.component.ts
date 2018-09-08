@@ -11,11 +11,11 @@ import { Title } from "@angular/platform-browser";
 `]
 })
 export class ErrorComponent {
-    constructor(private location:Location, private title :Title){
+    constructor(private location: Location, private title: Title) {
         this.title.setTitle('Page Not Found');
     }
 
-    goBack(){
+    goBack() {
         this.location.back();
     }
 

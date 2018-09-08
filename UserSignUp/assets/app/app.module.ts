@@ -15,7 +15,6 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ErrorComponent } from './error/error.component';
 import { UnderConstructionComponent } from './under-construction/under-construction.component';
 import { DialogComponent } from './dialogs/dialog.component';
-import { LogoutComponent } from './admin/logout/logout.component';
 import { DialogService } from './dialogs/dialog.service';
 
 
@@ -27,7 +26,6 @@ import { DialogService } from './dialogs/dialog.service';
     AdminComponent,
     UserComponent,
     DashboardComponent,
-    LogoutComponent,
     ErrorComponent,
     UnderConstructionComponent,
     DialogComponent

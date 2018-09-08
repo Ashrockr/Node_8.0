@@ -6,6 +6,8 @@ import { Title } from "@angular/platform-browser";
 import FormUtils from "../utils/FormUtils";
 import { User } from "../models/user.model";
 import { AuthService } from "../auth/auth.service";
+import { Dialog } from "../models/dialog";
+import { DialogService } from "../dialogs/dialog.service";
 
 var sd = String;
 @Component({
@@ -14,7 +16,7 @@ var sd = String;
 })
 export class SignUpComponent implements OnInit {
     signUpForm: FormGroup;
-    constructor(private router: Router, private authService: AuthService, private title:Title) { }
+    constructor(private router: Router, private authService: AuthService, private title: Title, private dialogService: DialogService) { }
 
     ngOnInit() {
         if (this.authService.isLoggedIn()) {
@@ -44,29 +46,37 @@ export class SignUpComponent implements OnInit {
         if (this.signUpForm.invalid) {
             return FormUtils.validateAllFields(this.signUpForm);
         }
+        var dialog = new Dialog('Logging In', 'Please Wait');
+        this.dialogService.showDialogWithProgressBar(dialog);
         const user = new User(
             null,
             this.signUpForm.value.name,
             this.signUpForm.value.email,
             this.signUpForm.value.password,
-            this.signUpForm.value.gender);
+            this.signUpForm.value.gender, false);
         this.authService.signUp(user)
             .subscribe(
                 data => {
                     this.signUpUser(data);
                 },
                 error => {
-                    console.log(error);
+                    this.dialogService.closeDialogs();
+                    dialog = new Dialog('Error', error.message);
+                    this.dialogService.showDialog(dialog);
                     this.signUpForm.reset();
                 }
             );
     }
     signUpUser(data) {
-        var token = data.token;
+        var token = data['token'];
+        var user = new User(data._id, data.name, data.email, null, data.gender, data.isAdmin);
         //save the token 
         localStorage.setItem('jwt-token', token);
+        localStorage.setItem('role', 'ROLE_OTHER');
+        localStorage.setItem('user', JSON.stringify(user));
         //re-route the user
         this.router.navigate(['/user']);
+        this.dialogService.closeDialogs();
 
     }
 }

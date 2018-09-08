@@ -9,19 +9,10 @@
                 <p class="card-body">Welcome Admin</p>
                 <div class="list-group list-group-flush" id="list-tab" role="tablist">
                     <ng-container *ngFor="let menu of menus">
-                        <ng-container *ngIf="menu.isFunction; else elseTemplate">
-                            <a class="list-group-item list-group-item-action  border-0" data-toggle="list" href="#list-home" role="tab" (click)='menu.route'
-                                routerLinkActive="active" #rla="routerLinkActive" [attr.area-selected]="rla.isActive">
-                                {{menu.name}}
-                            </a>
-                        </ng-container>
-                        <ng-template #elseTemplate>
                             <a class="list-group-item list-group-item-action  border-0" data-toggle="list" href="#list-home" role="tab" [routerLink]="[ '/admin',menu.route ]"
                                 routerLinkActive="active">
                                 {{menu.name}}
                             </a>
-                        </ng-template>
-
                     </ng-container>
                 </div>
             </ul>

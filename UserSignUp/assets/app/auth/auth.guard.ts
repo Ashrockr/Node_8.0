@@ -12,6 +12,7 @@ export class AuthGuard implements CanActivate {
         const role = route.data['role'];
         const userRole = localStorage.getItem('role');
         var token = localStorage.getItem('jwt-token');
+        //console.log("role"+role+"userRole"+userRole+"token"+token);
 
         if (token) {
             let jwtHelper: JwtHelper = new JwtHelper();

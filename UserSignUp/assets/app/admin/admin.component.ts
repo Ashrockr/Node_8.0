@@ -4,7 +4,6 @@ import { Title } from "@angular/platform-browser";
 import { Menu } from "../models/menu.model";
 import { Dialog } from "../models/dialog";
 import { DialogService } from "../dialogs/dialog.service";
-import { Router } from "@angular/router";
 import { AuthService } from "../auth/auth.service";
 
 @Component({

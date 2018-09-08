@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
             this.loginForm.value.name,
             this.loginForm.value.email,
             this.loginForm.value.password,
-            this.loginForm.value.gender);
+            this.loginForm.value.gender,false);
         this.authService.login(user)
             .subscribe(
                 data => {
@@ -69,12 +69,14 @@ export class LoginComponent implements OnInit {
     }
     loginUser(data) {
         var token = data.token;
+        var user = new User(data._id,data.name,data.email,null,data.gender,false);
+        localStorage.setItem('user', JSON.stringify(user));
         //save the token 
         localStorage.setItem('jwt-token', token);
         if (data.isAdmin == true)
             localStorage.setItem('role', 'ROLE_ADMIN');
         else
-            localStorage.setItem('role', 'OTHER_ROLE');
+            localStorage.setItem('role', 'ROLE_OTHER');
         //re-route the user
         if (data.isAdmin) { // admin page
             this.router.navigate(['/admin']);
@@ -82,6 +84,7 @@ export class LoginComponent implements OnInit {
         }
         else {
             this.router.navigate(['/user']);
+            this.dialogService.closeDialogs();
         }
 
     }

@@ -7,7 +7,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/login', function (req, res, next) {
-  console.log(req.body.email+''+req.body.password);
+  console.log(req.body.email + '' + req.body.password);
   User.findOne({
     email: req.body.email
   }, (err, doc) => {
@@ -35,16 +35,17 @@ router.post('/login', function (req, res, next) {
       res.status(200).json({
         _id: doc._id,
         name: doc.name,
-        email:doc.email,
+        email: doc.email,
         isAdmin: doc.isAdmin,
+        gender: doc.gender,
         token: token
       });
-    }    
+    }
   });
 });
 
 router.post('/signup', (req, res, next) => {
-  console.log(req.body.email+''+req.body.password);
+  console.log(req.body.email + '' + req.body.password);
   var user = new User({
     name: req.body.name,
     password: req.body.password,
@@ -65,8 +66,9 @@ router.post('/signup', (req, res, next) => {
     res.status(201).json({
       _id: doc._id,
       name: doc.name,
-      email:doc.email,
+      email: doc.email,
       isAdmin: doc.isAdmin,
+      gender: doc.gender,
       token: token
     });
   })

@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthService {
+
     public getToken(): string {
         return localStorage.getItem('jwt-token');
     }
@@ -27,18 +28,24 @@ export class AuthService {
     signUp(user: User) {
         const header = new Headers({ 'Content-Type': 'application/json' });
         return this.http.post(this.url + '/signup', JSON.stringify(user), { headers: header })
-            .map((res: Response) => res.json())
-            .catch((error: Response) => Observable.throw(error.json));
+            .map((res: Response) => {
+                return res.json();
+            })
+            .catch((error: Response) => {
+                return Observable.throw(error.json())
+            }
+            );
     }
 
     logOut() {
         localStorage.removeItem('jwt-token');
         localStorage.removeItem('role');
+        localStorage.removeItem('user');
         this.router.navigate(['/login']);
     }
 
-    isLoggedIn(){
-        if(localStorage.getItem('jwt-token') && localStorage.getItem('role') ){
+    isLoggedIn() {
+        if (localStorage.getItem('jwt-token') && localStorage.getItem('role')) {
             return true;
         }
         return false;

@@ -30,7 +30,6 @@ export class DialogComponent implements OnInit {
         this.displayMessage = 'none';
         this.displayProgress = 'none';
         this.confirmDialog = 'none';
-        this.dialogService.cancelDialogs();
     }
 
     onOk(){

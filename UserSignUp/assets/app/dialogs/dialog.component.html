@@ -6,7 +6,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{dialog?.title}}</h5>
-                <button type="button" class="close" (click)="onCancel()">
+                <button type="button" class="close" (click)='onCancel()'>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -14,7 +14,7 @@
                 {{dialog?.message}}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="onCancel()">Close</button>
+                <button type="button" class="btn btn-secondary" (click)='onCancel()'>Close</button>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{dialog?.title}}</h5>
-                <button type="button" class="close" (click)="onCancel()">
+                <button type="button" class="close" (click)='onCancel()'>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -33,7 +33,7 @@
                 {{dialog?.message}}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+                <button type="button" class="btn btn-secondary" (click)='onCancel()'>Cancel</button>
                 <button type="button" class="btn btn-primary" (click)="onOk()">{{dialog?.okBtn}}</button>
             </div>
         </div>
