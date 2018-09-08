@@ -1,16 +1,21 @@
 var express = require('express');
 var jwt = require('jsonwebtoken');
+var fs = require('fs');
 
 var User = require('../models/User');
+var Image = require('../models/Image');
 var Configs = require('../configs');
 var router = express.Router();
+
+
+var imgPath = 'C:/Users/harish/Desktop/Node_8.0/male.png';
 
 /* GET users listing. */
 router.post('/login', function (req, res, next) {
   console.log(req.body.email + '' + req.body.password);
   User.findOne({
     email: req.body.email
-  }, (err, doc) => {
+  }).populate('image').exec((err, doc) => {
     if (err) {
       next(err);
     }
@@ -46,11 +51,17 @@ router.post('/login', function (req, res, next) {
 
 router.post('/signup', (req, res, next) => {
   console.log(req.body.email + '' + req.body.password);
+  var url = "http://localhost:3000/images/";
+  var avatar = "male.png";
+  if(req.body.gender=='Female'){
+    avatar="female.png";
+  }
   var user = new User({
     name: req.body.name,
     password: req.body.password,
     email: req.body.email,
-    gender: req.body.gender
+    gender: req.body.gender,
+    avatar:url+avatar
   });
   user.save((err, doc) => {
     if (err) {
@@ -96,6 +107,7 @@ router.get('/allUser', (req, res, next) => {
     });
   }
 
-})
+});
+
 
 module.exports = router;

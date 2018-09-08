@@ -2,11 +2,17 @@
     <div class="col-md-2 bg-white side-nav px-0 border-right bg-dark">
         <!-- Sidebar -->
         <nav id="sidebar">
-            <div class="card-header">
-                <h3>User Sidebar</h3>
-            </div>
             <ul class="list-unstyled components">
-                <p class="card-body">Welcome {{user.name}}</p>
+                <!--Avatar -->
+                <div class="card border-0 mt-2">
+                    <div class="avatar mx-2 white"><img src="http://localhost:3000/images/female.png" class=" img-fluid rounded-circle img-thumbnail">
+                    </div>
+                    <div class="card-body">
+                        <!-- Name -->
+                        <h4 class="card-title text-center"> {{user.name}}</h4>
+                    </div>
+                </div>
+                <!--Avatar Ends-->
                 <div class="list-group list-group-flush" id="list-tab" role="tablist">
                     <ng-container *ngFor="let menu of menus">
                         <a class="list-group-item list-group-item-action  border-0" data-toggle="list" href="#list-home" role="tab" [routerLink]="[ '/user',menu.route ]"

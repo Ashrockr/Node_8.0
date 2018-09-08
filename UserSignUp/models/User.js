@@ -1,27 +1,29 @@
 var mongoose = require('mongoose');
-var User = mongoose.model('User',{
-    name : {
-        type : String
+var Image = require('./Image');
+var User = mongoose.model('User', {
+    name: {
+        type: String
     },
-    password : {
-        type : String,
-        require : true
+    password: {
+        type: String,
+        require: true
     },
-    email : {
-        type : String,
-        require : true
+    email: {
+        type: String,
+        require: true
     },
-    gender : {
-        type : String,
+    gender: {
+        type: String,
         enum: {
-            values: ['Male','Female'],
+            values: ['Male', 'Female'],
             message: 'For `{PATH}` the value `{VALUE}` is not valid. Only Male or Female allowed'
         }
     },
-    isAdmin : {
-        type : Boolean,
-        default:false
-    }
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    avatar: String
 });
 
 module.exports = User;
