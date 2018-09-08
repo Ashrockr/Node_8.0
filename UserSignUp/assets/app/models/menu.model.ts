@@ -2,8 +2,7 @@ export class Menu {
     name: String;
     route: String;
     subMenus: Menu[];
-
-    constructor(name: String, route: String) {
+    constructor(name: String, route: String, isFunction=false) {
         this.name = name;
         this.route = route;
         this.subMenus = new Array();

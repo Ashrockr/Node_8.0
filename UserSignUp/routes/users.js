@@ -19,7 +19,7 @@ router.post('/login', function (req, res, next) {
       });
     }
     else if (req.body.password != doc.password) {
-      res.json({
+      res.status(401).json({
         message: 'Incorrect Password'
       });
     }

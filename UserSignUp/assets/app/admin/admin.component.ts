@@ -2,6 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 
 import { Menu } from "../models/menu.model";
+import { Dialog } from "../models/dialog";
+import { DialogService } from "../dialogs/dialog.service";
+import { Router } from "@angular/router";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
     selector: 'app-admin',
@@ -9,13 +13,12 @@ import { Menu } from "../models/menu.model";
     styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-    menus : Menu[]; 
-    addMember:Menu;
-    logout:Menu;
-    viewMessage:Menu;
-    viewUsers:Menu;
-    viewReport:Menu;
-    constructor(private title: Title) {
+    menus: Menu[];
+    dashboard: Menu;
+    viewMessage: Menu;
+    viewUsers: Menu;
+    viewReport: Menu;
+    constructor(private title: Title, private dialogService: DialogService, private authService: AuthService) {
         this.title.setTitle('Admin Page');
         this.menus = new Array();
     }
@@ -24,18 +27,23 @@ export class AdminComponent implements OnInit {
     }
 
     private initializeMenu() {
-        this.addMember = new Menu('Add Member', 'addMember');
-        var addAdmin = new Menu('Add Admin', 'addAdmin');
-        var addUser = new Menu('Add User', 'addUser');
-        this.addMember.addSubMenu(addAdmin, addUser);
-        this.viewMessage = new Menu('View Message','viewMessages');
-        this.viewUsers= new Menu('View Users','viewUsers');
-        this.viewReport = new Menu('View Report','viewReport');
-        var graph1 = new Menu('Graph1','graph1');
-        var graph2 = new Menu('Graph2','graph2');
-        var graph3 = new Menu('Graph3','graph3');
-        this.viewReport.addSubMenu(graph1,graph2,graph3);
-        this.logout = new Menu('Logout', '/logout');
-        this.menus.push(this.addMember,this.viewMessage,this.viewUsers,this.viewReport,this.logout);
+        this.dashboard = new Menu('Dashboard', 'dashboard');
+        this.viewMessage = new Menu('View Message', 'viewMessages');
+        this.viewUsers = new Menu('View Users', 'viewUsers');
+        this.viewReport = new Menu('View Report', 'viewReport');
+        this.menus.push(this.dashboard, this.viewMessage, this.viewUsers, this.viewReport);
+    }
+
+    logOut() {
+        var dialog = new Dialog('Do you want to log out?', `Click 'Cancel' to return to page or 'Confirm' to log out`, 'Confirm');
+        this.dialogService.showConfirmDialog(dialog);
+        this.dialogService.cancelDialogEmitter
+            .subscribe();
+        this.dialogService.okDialogEmitter
+            .subscribe(
+                () => {
+                    this.authService.logOut();
+                }
+            )
     }
 }

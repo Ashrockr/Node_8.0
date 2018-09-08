@@ -1,30 +1,39 @@
-<div class="wrapper">
-    <!-- Sidebar -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Admin Sidebar</h3>
-        </div>
-
-        <ul class="list-unstyled components">
-            <p>Welcome Admin</p>
-            <div class="sidebar-menus">
-                <li *ngFor="let menu of menus" routerLinkActive="active">
-                    <ng-container *ngIf="menu.subMenus.length!=0; else elseTemplate">
-                        <a [href]="'#'+menu.route" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{menu.name}}</a>
-                        <ul class="collapse list-unstyled" [id]="menu.route" routerLinkActive="show">
-                            <li *ngFor="let subMenu of menu.subMenus" routerLinkActive="active">
-                                <a [routerLink]="[ '/admin',subMenu.route ]">{{subMenu.name}}</a>
-                            </li>
-                        </ul>
-                    </ng-container>
-                    <ng-template #elseTemplate>
-                        <a [routerLink]="[ '/admin',menu.route ]">{{menu.name}}</a>
-                    </ng-template>
-                </li>
+<div class="row mx-0">
+    <div class="col-md-2 bg-white side-nav px-0 border-right bg-dark">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="card-header">
+                <h3>Admin Sidebar</h3>
             </div>
-        </ul>
-    </nav>
-    <div id="content">
+            <ul class="list-unstyled components">
+                <p class="card-body">Welcome Admin</p>
+                <div class="list-group list-group-flush" id="list-tab" role="tablist">
+                    <ng-container *ngFor="let menu of menus">
+                        <ng-container *ngIf="menu.isFunction; else elseTemplate">
+                            <a class="list-group-item list-group-item-action  border-0" data-toggle="list" href="#list-home" role="tab" (click)='menu.route'
+                                routerLinkActive="active" #rla="routerLinkActive" [attr.area-selected]="rla.isActive">
+                                {{menu.name}}
+                            </a>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <a class="list-group-item list-group-item-action  border-0" data-toggle="list" href="#list-home" role="tab" [routerLink]="[ '/admin',menu.route ]"
+                                routerLinkActive="active">
+                                {{menu.name}}
+                            </a>
+                        </ng-template>
+
+                    </ng-container>
+                </div>
+            </ul>
+            <ul class="col-md-2 px-0 pb-1 mb-0 fixed-bottom border-right list-unstyled components">
+                <div class="list-group list-group-flush" id="list-tab" role="tablist">
+                    <button type="button" id="handPointer" class="list-group-item list-group-item-action border-0" (click)='logOut()'>Log
+                        Out</button>
+                </div>
+            </ul>
+        </nav>
+    </div>
+    <div id="content" class="col-md-10">
         <router-outlet></router-outlet>
     </div>
 </div>

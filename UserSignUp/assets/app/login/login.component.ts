@@ -6,6 +6,8 @@ import { Router } from "@angular/router";
 import FormUtils from "../utils/FormUtils";
 import { User } from "../models/user.model";
 import { AuthService } from "../auth/auth.service";
+import { DialogService } from "../dialogs/dialog.service";
+import { Dialog } from "../models/dialog";
 
 var sd = String;
 @Component({
@@ -15,7 +17,7 @@ var sd = String;
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
 
-    constructor(private router: Router, private authService: AuthService, private title: Title) { }
+    constructor(private router: Router, private authService: AuthService, private title: Title, private dialogService: DialogService) { }
 
     ngOnInit() {
         if (this.authService.isLoggedIn()) {
@@ -44,6 +46,8 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.invalid) {
             return FormUtils.validateAllFields(this.loginForm);
         }
+        var dialog = new Dialog('Logging In', 'Please Wait');
+        this.dialogService.showDialogWithProgressBar(dialog);
         const user = new User(
             null,
             this.loginForm.value.name,
@@ -56,7 +60,9 @@ export class LoginComponent implements OnInit {
                     this.loginUser(data);
                 },
                 error => {
-                    console.log(error);
+                    this.dialogService.closeDialogs();
+                    dialog = new Dialog('Error',error.message);
+                    this.dialogService.showDialog(dialog);
                     this.loginForm.reset();
                 }
             );
@@ -72,6 +78,7 @@ export class LoginComponent implements OnInit {
         //re-route the user
         if (data.isAdmin) { // admin page
             this.router.navigate(['/admin']);
+            this.dialogService.closeDialogs();
         }
         else {
             this.router.navigate(['/user']);
