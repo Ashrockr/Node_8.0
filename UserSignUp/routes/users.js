@@ -14,7 +14,9 @@ var imgPath = 'C:/Users/harish/Desktop/Node_8.0/male.png';
 router.post('/login', function (req, res, next) {
   console.log(req.body.email + '' + req.body.password);
   User.findOne({
-    email: req.body.email
+    $text: {
+      $search: req.body.email
+    }
   }).populate('image').exec((err, doc) => {
     if (err) {
       next(err);
@@ -38,11 +40,12 @@ router.post('/login', function (req, res, next) {
         expiresIn: '1d'
       });
       res.status(200).json({
-        _id: doc._id,
+        id: doc._id,
         name: doc.name,
         email: doc.email,
         isAdmin: doc.isAdmin,
         gender: doc.gender,
+        avatar: doc.avatar,
         token: token
       });
     }
@@ -51,17 +54,17 @@ router.post('/login', function (req, res, next) {
 
 router.post('/signup', (req, res, next) => {
   console.log(req.body.email + '' + req.body.password);
-  var url = "http://localhost:3000/images/";
+  var url = "/images/";
   var avatar = "male.png";
-  if(req.body.gender=='Female'){
-    avatar="female.png";
+  if (req.body.gender.localeCompare('Female') == 0) {
+    avatar = "female.png";
   }
   var user = new User({
-    name: req.body.name,
+    name: req.body.name.toUppercase,
     password: req.body.password,
     email: req.body.email,
     gender: req.body.gender,
-    avatar:url+avatar
+    avatar: url + avatar
   });
   user.save((err, doc) => {
     if (err) {
@@ -75,11 +78,12 @@ router.post('/signup', (req, res, next) => {
       expiresIn: '1d'
     });
     res.status(201).json({
-      _id: doc._id,
+      id: doc._id,
       name: doc.name,
       email: doc.email,
       isAdmin: doc.isAdmin,
       gender: doc.gender,
+      avatar: doc.avatar,
       token: token
     });
   })
@@ -95,7 +99,18 @@ router.get('/allUser', (req, res, next) => {
       else {
         User.find((err, docs) => {
           if (err) throw err;
-          res.status(200).json({ users: docs, token: token });
+          let users = [];
+          for (let doc of docs) {
+            users.push({
+              id: doc._id,
+              name: doc.name,
+              email: doc.email,
+              isAdmin: doc.isAdmin,
+              gender: doc.gender,
+              avatar: doc.avatar
+            })
+          }
+          res.status(200).json(users);
         });
       }
     })
@@ -109,5 +124,35 @@ router.get('/allUser', (req, res, next) => {
 
 });
 
+router.get('/getUsersCount', (req, res, next) => {
+  User.find().countDocuments((err, count) => {
+    if (err) throw err;
+    res.status(200).json(count);
+  });
+});
+
+router.get('/allUser/:limit/:skip', (req, res, next) => {
+  var limit = parseInt(req.params.limit);
+  var skip = parseInt(req.params.skip);
+  User.find()
+    .sort({ "_id": 1 })
+    .skip(skip)
+    .limit(limit)
+    .exec((err, docs) => {
+      if (err) throw err;
+      let users = [];
+      for (let doc of docs) {
+        users.push({
+          id: doc._id,
+          name: doc.name,
+          email: doc.email,
+          isAdmin: doc.isAdmin,
+          gender: doc.gender,
+          avatar: doc.avatar
+        })
+      }
+      res.status(200).json(users);
+    });
+});
 
 module.exports = router;

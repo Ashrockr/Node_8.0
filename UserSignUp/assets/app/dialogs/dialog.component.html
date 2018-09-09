@@ -1,7 +1,7 @@
 <div class="backdrop" [ngStyle]="{'display': display}">
 </div>
 <!-- Cancel Dialog-->
-<div class="modal " tabindex="-1" [ngStyle]="{'display': displayMessage}" role="dialog">
+<div class="modal " tabindex="-1" (keydown.esc)="onCancel()" [ngStyle]="{'display': displayMessage}" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +20,7 @@
     </div>
 </div>
 <!-- Ok Cancel Dialog-->
-<div class="modal " tabindex="-1" [ngStyle]="{'display': confirmDialog}" role="dialog">
+<div class="modal " tabindex="1"  (keydown.esc)="onCancel()" [ngStyle]="{'display': confirmDialog}" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

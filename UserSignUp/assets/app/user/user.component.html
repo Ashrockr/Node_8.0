@@ -1,37 +1,8 @@
 <div class="row mx-0">
-    <div class="col-md-2 bg-white side-nav px-0 border-right bg-dark">
-        <!-- Sidebar -->
-        <nav id="sidebar">
-            <ul class="list-unstyled components">
-                <!--Avatar -->
-                <div class="card border-0 mt-2">
-                    <div class="avatar mx-2 white"><img src="http://localhost:3000/images/female.png" class=" img-fluid rounded-circle img-thumbnail">
-                    </div>
-                    <div class="card-body">
-                        <!-- Name -->
-                        <h4 class="card-title text-center"> {{user.name}}</h4>
-                    </div>
-                </div>
-                <!--Avatar Ends-->
-                <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                    <ng-container *ngFor="let menu of menus">
-                        <a class="list-group-item list-group-item-action  border-0" data-toggle="list" href="#list-home" role="tab" [routerLink]="[ '/user',menu.route ]"
-                            routerLinkActive="active">
-                            {{menu.name}}
-                        </a>
-                    </ng-container>
-                </div>
-            </ul>
-            <ul class="col-md-2 px-0 pb-1 mb-0 fixed-bottom border-right list-unstyled components">
-                <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                    <button type="button" id="handPointer" class="list-group-item list-group-item-action border-0" (click)='logOut()'>Log
-                        Out
-                    </button>
-                </div>
-            </ul>
-        </nav>
+        <div class="col-md-2 px-0">
+            <app-navbar [menus]='menus' from="/user"></app-navbar>
+        </div>
+        <div id="content" class="col-md-10">
+            <router-outlet></router-outlet>
+        </div>
     </div>
-    <div id="content" class="col-md-10">
-        <router-outlet></router-outlet>
-    </div>
-</div>

@@ -9,14 +9,23 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthService {
+    user: User;
+
+    constructor(private http: Http, private router: Router) { }
 
     public getToken(): string {
         return localStorage.getItem('jwt-token');
     }
 
-    constructor(private http: Http, private router: Router) { }
+    public getUser() {
+        if (this.user == undefined) {
+            this.user = JSON.parse(localStorage.getItem('user'));;
+        }
+        return this.user;
+    }
 
-    url = CONFIGS.apiURL + '/users';
+
+    url = CONFIGS.apiURL;
 
     login(user: User) {
         const header = new Headers({ 'Content-Type': 'application/json' });

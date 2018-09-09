@@ -53,7 +53,7 @@ export class SignUpComponent implements OnInit {
             this.signUpForm.value.name,
             this.signUpForm.value.email,
             this.signUpForm.value.password,
-            this.signUpForm.value.gender, false);
+            this.signUpForm.value.gender, false,null);
         this.authService.signUp(user)
             .subscribe(
                 data => {
@@ -69,7 +69,7 @@ export class SignUpComponent implements OnInit {
     }
     signUpUser(data) {
         var token = data['token'];
-        var user = new User(data._id, data.name, data.email, null, data.gender, data.isAdmin);
+        var user = new User(data._id, data.name, data.email, null, data.gender, data.isAdmin,data.avatar);
         //save the token 
         localStorage.setItem('jwt-token', token);
         localStorage.setItem('role', 'ROLE_OTHER');

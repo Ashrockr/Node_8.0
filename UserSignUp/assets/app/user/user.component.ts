@@ -15,7 +15,6 @@ export class UserComponent implements OnInit {
     user: User;
     menus: Menu[];
     dashboard: Menu;
-    viewMessage: Menu;
     viewUsers: Menu;
     viewReport: Menu;
     constructor(private title: Title, private dialogService: DialogService, private authService: AuthService) {
@@ -23,14 +22,14 @@ export class UserComponent implements OnInit {
         this.menus = new Array();
     }
     ngOnInit() {
-        this.user = JSON.parse(localStorage.getItem('user'));
+        this.user = this.authService.getUser();
         this.initializeMenu();
     }
 
     private initializeMenu() {
         this.dashboard = new Menu('Dashboard', 'dashboard');
-        this.viewMessage = new Menu('View Message', 'viewMessages');
-        this.menus.push(this.dashboard, this.viewMessage);
+        this.viewUsers = new Menu('View Users', 'viewUsers');
+        this.menus.push(this.dashboard, this.viewUsers);
     }
 
     logOut() {

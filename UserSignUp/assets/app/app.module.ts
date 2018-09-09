@@ -16,6 +16,10 @@ import { ErrorComponent } from './error/error.component';
 import { UnderConstructionComponent } from './under-construction/under-construction.component';
 import { DialogComponent } from './dialogs/dialog.component';
 import { DialogService } from './dialogs/dialog.service';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ViewUsersComponent } from './view-users/view-users.component';
+import { OrderModule } from 'ngx-order-pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -23,14 +27,16 @@ import { DialogService } from './dialogs/dialog.service';
     AppComponent,
     LoginComponent,
     SignUpComponent,
+    NavbarComponent,
     AdminComponent,
     UserComponent,
     DashboardComponent,
     ErrorComponent,
     UnderConstructionComponent,
-    DialogComponent
+    DialogComponent,
+    ViewUsersComponent
   ],
-  imports: [BrowserModule, routing, FormsModule, ReactiveFormsModule, HttpModule],
+  imports: [BrowserModule, routing, FormsModule, ReactiveFormsModule, HttpModule, OrderModule,Ng2SearchPipeModule ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, DialogService],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,7 @@
+thead>tr>th {
+    cursor: pointer;
+}
+.height-table{
+    
+    min-height: 35vh;
+}

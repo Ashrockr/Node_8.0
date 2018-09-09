@@ -33,16 +33,5 @@ export class AdminComponent implements OnInit {
         this.menus.push(this.dashboard, this.viewMessage, this.viewUsers, this.viewReport);
     }
 
-    logOut() {
-        var dialog = new Dialog('Do you want to log out?', `Click 'Cancel' to return to page or 'Confirm' to log out`, 'Confirm');
-        this.dialogService.showConfirmDialog(dialog);
-        this.dialogService.cancelDialogEmitter
-            .subscribe();
-        this.dialogService.okDialogEmitter
-            .subscribe(
-                () => {
-                    this.authService.logOut();
-                }
-            )
-    }
+    
 }

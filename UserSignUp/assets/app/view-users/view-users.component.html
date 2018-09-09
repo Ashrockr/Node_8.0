@@ -1,0 +1,81 @@
+<div class="container px-0">
+    <div class="col-md-12 px-0">
+        <nav class="navbar">
+            <input class="form-control" type="text" name="search" [(ngModel)]="filter">
+        </nav>
+        <div class="height-table">
+            <table class="table text-center">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" (click)="sort('name')">
+                            Name
+                            <span class="fa fa-lg" *ngIf="key =='name'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
+                        </th>
+                        <th scope="col" (click)="sort('email')">
+                            E-Mail
+                            <span class="fa fa-lg" *ngIf="key =='email'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
+                        </th>
+                        <th scope="col" (click)="sort('isAdmin')">
+                            Administrator
+                            <span class="fa fa-lg" *ngIf="key =='isAdmin'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
+                        </th>
+                        <th scope="col" (click)="sort('gender')">
+                            Gender
+                            <span class="fa fa-lg" *ngIf="key =='gender'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
+                        </th>
+                        <th scope="col" (click)="sort('date')">
+                            Date
+                            <span class="fa fa-lg" *ngIf="key =='date'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users | orderBy : key : reverse | filter:filter; index as i">
+                        <th scope="row">{{i+1+(limit * (currentPage - 1))}}</th>
+                        <td class="text-capitalize">{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <ng-container *ngIf="user.isAdmin; else elseTemplate">
+                            <td> <i class="fa fa-check text-success fa-lg"></i></td>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <td><i class="fa fa-times text-danger fa-lg"></i></td>
+                        </ng-template>
+
+
+                        <td>{{user.gender}}</td>
+                        <td>{{user.date | date:'medium'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <nav aria-label="Page navigation example" class="col-md-4 offset-md-3">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item" [ngClass]="{'disabled': currentPage==1}" >
+                        <button class="page-link border-0" [disabled]="!currentPage==1" (click)=" getUsers(1)" tabindex="-1"><i class="fa fa-fast-backward fa-lg"></i></button>
+                    </li>
+                    <li class="page-item" [ngClass]="{'disabled': currentPage==1}" >
+                        <button class="page-link border-0" [disabled]="!currentPage==1 " (click)="getUsers(currentPage-1)"><i class="fa fa-step-backward fa-lg"></i></button>
+                    </li>
+                    <li class="page-item disabled">
+                        <button class="page-link border-0" href="#">{{currentPage}}</button>
+                    </li>
+                    <li class="page-item disabled">
+                        <button class="page-link border-0" href="#">of</button>
+                    </li>
+                    <li class="page-item disabled">
+                        <button class="page-link border-0" href="#">{{totalPage}}</button>
+                    </li>
+                    <li class="page-item" [ngClass]="{'disabled': currentPage==totalPage}">
+                        <button class="page-link border-0" [disabled]="!currentPage==totalPage" (click)=" getUsers(currentPage+1)" tabindex="-1"><i class="fa fa-step-forward fa-lg"></i></button>
+                    </li>
+                    <li class="page-item" [ngClass]="{'disabled': currentPage==totalPage}">
+                        <button class="page-link border-0" [disabled]="!currentPage==totalPage" (click)="getUsers(totalPage)"><i
+                                class="fa fa-fast-forward fa-lg"></i></button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
