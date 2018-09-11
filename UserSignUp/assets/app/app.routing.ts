@@ -13,7 +13,7 @@ import { USER_ROUTES } from "./user/user.routes";
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'signup', component: SignUpComponent },
+    { path: 'signup', component: LoginComponent },
     { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: { role: 'ROLE_ADMIN' }, children: ADMIN_ROUTES },
     { path: 'user', component: UserComponent, canActivate: [AuthGuard], data: { role: 'ROLE_OTHER' }, children: USER_ROUTES },
     { path: '**', component: ErrorComponent },

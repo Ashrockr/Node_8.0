@@ -150,4 +150,11 @@ router.get('/allUser/:limit/:skip', (req, res, next) => {
     });
 });
 
+router.use(function(err, req, res, next) {
+  res.status(500).json({
+    message : 'Some error occured on server',
+    error : err
+  });
+});
+
 module.exports = router;

@@ -1,4 +1,8 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #fafafa;
 }
 
+.screen-height{
+  height: 95vh;
+}

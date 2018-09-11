@@ -31,7 +31,13 @@ export class AuthService {
         const header = new Headers({ 'Content-Type': 'application/json' });
         return this.http.post(this.url + '/login', JSON.stringify(user), { headers: header })
             .map((res: Response) => res.json())
-            .catch((error: Response) => Observable.throw(error.json()));
+            .catch((error: Response) => {
+                if(error.status == 0){
+                    return Observable.throw({
+                        message:'Could not connect to server'
+                    })
+                }
+                return Observable.throw(error.json())});
     }
 
     signUp(user: User) {
