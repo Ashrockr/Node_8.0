@@ -8,16 +8,11 @@ var Configs = require('../configs');
 var router = express.Router();
 
 
-var imgPath = 'C:/Users/harish/Desktop/Node_8.0/male.png';
-
 /* GET users listing. */
 router.post('/login', function (req, res, next) {
-  console.log(req.body.email + '' + req.body.password);
   User.findOne({
-    $text: {
-      $search: req.body.email
-    }
-  }).populate('image').exec((err, doc) => {
+    email: req.body.email
+  }).exec((err, doc) => {
     if (err) {
       next(err);
     }
@@ -47,7 +42,7 @@ router.post('/login', function (req, res, next) {
         gender: doc.gender,
         avatar: doc.avatar,
         token: token
-      });
+      });      
     }
   });
 });
