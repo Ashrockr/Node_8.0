@@ -20,7 +20,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ViewUsersComponent } from './view-users/view-users.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { AngularMaterialModule } from './angular.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,17 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     DialogComponent,
     ViewUsersComponent
   ],
-  imports: [BrowserModule, routing, FormsModule, ReactiveFormsModule, HttpModule, OrderModule,Ng2SearchPipeModule ],
+  imports: [
+    BrowserModule, 
+    routing, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    HttpModule, 
+    OrderModule, 
+    Ng2SearchPipeModule, 
+    BrowserAnimationsModule,
+    AngularMaterialModule
+  ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/' }, AuthService, AuthGuard, DialogService],
   bootstrap: [AppComponent]
 })
