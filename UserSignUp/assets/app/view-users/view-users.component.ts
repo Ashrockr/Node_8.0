@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ViewUsersService } from "./view-users.service";
 import { DialogService } from "../dialogs/dialog.service";
 import { Dialog } from "../models/dialog";
+import { MatTableDataSource, MatSort } from "@angular/material";
 
 @Component({
     selector: 'app-message',
@@ -10,7 +11,8 @@ import { Dialog } from "../models/dialog";
     providers: [ViewUsersService]
 })
 export class ViewUsersComponent implements OnInit {
-    users: Object[];
+    users;
+    columnsToDisplay=['name','email','isAdmin','date'];
     totalUser: number = 0;
     loadedUser: number = 0;
     limit: number = 5;
@@ -20,9 +22,10 @@ export class ViewUsersComponent implements OnInit {
     currentPage: number = 1;
     totalPage: number = 1;
 
+    @ViewChild(MatSort) sort: MatSort;
+
     constructor(private viewUserService: ViewUsersService, private dialogService: DialogService) { }
     ngOnInit() {
-        this.users = [];
         this.dialog = new Dialog('Loading...', 'Please Wait');
         this.dialogService.showDialogWithProgressBar(this.dialog);
         this.viewUserService.getUserCount()
@@ -31,6 +34,7 @@ export class ViewUsersComponent implements OnInit {
                     this.totalUser = data;
                     this.totalPage = Math.ceil(this.totalUser / this.limit);
                     this.getUsers(1);
+                    this.users.sort = this.sort;
                 },
                 (error) => {
                     this.dialogService.closeDialogs();
@@ -64,7 +68,7 @@ export class ViewUsersComponent implements OnInit {
         this.viewUserService.getUsers(this.limit, skipUsers)
             .subscribe(
                 (data) => {
-                    this.users = this.transformer(data);
+                    this.users = new MatTableDataSource(this.transformer(data));
                     this.currentPage=page;
                     this.dialogService.closeDialogs();
                 },
@@ -90,8 +94,8 @@ export class ViewUsersComponent implements OnInit {
         }
         return transformedUsers;
     }
-    sort(key) {
-        this.key = key;
-        this.reverse = !this.reverse;
+    sortData(event){
+        console.log(event);
+        
     }
 }

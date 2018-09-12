@@ -1,78 +1,29 @@
-<div class="container px-0">
-    <div class="col-md-12 px-0">
-        <div class="height-table">
-            <table class="table text-center">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col" (click)="sort('name')">
-                            Name
-                            <span class="fa fa-lg" *ngIf="key =='name'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
-                        </th>
-                        <th scope="col" (click)="sort('email')">
-                            E-Mail
-                            <span class="fa fa-lg" *ngIf="key =='email'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
-                        </th>
-                        <th scope="col" (click)="sort('isAdmin')">
-                            Administrator
-                            <span class="fa fa-lg" *ngIf="key =='isAdmin'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
-                        </th>
-                        <th scope="col" (click)="sort('gender')">
-                            Gender
-                            <span class="fa fa-lg" *ngIf="key =='gender'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
-                        </th>
-                        <th scope="col" (click)="sort('date')">
-                            Date
-                            <span class="fa fa-lg" *ngIf="key =='date'" [ngClass]="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let user of users | orderBy : key : reverse | filter:filter; index as i">
-                        <th scope="row">{{i+1+(limit * (currentPage - 1))}}</th>
-                        <td class="text-capitalize">{{user.name}}</td>
-                        <td>{{user.email}}</td>
-                        <ng-container *ngIf="user.isAdmin; else elseTemplate">
-                            <td> <i class="fa fa-check text-success fa-lg"></i></td>
-                        </ng-container>
-                        <ng-template #elseTemplate>
-                            <td><i class="fa fa-times text-danger fa-lg"></i></td>
-                        </ng-template>
+<mat-table #table [dataSource]="users" matSort (matSortChange)="sortData($event)">
+    <!-- Name Column-->
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef  mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.name}} </mat-cell>
+      </ng-container>
+    <!-- Email Column-->
+    <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.email}}</mat-cell>
+    </ng-container>
+    <!-- Administrator Column-->
+    <ng-container matColumnDef="isAdmin">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Administrator </mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <i *ngIf="user.isAdmin" class="fa fa-check text-success fa-lg"></i>
+            <i *ngIf="!user.isAdmin" class="fa fa-times text-danger fa-lg"></i>
+        </mat-cell>
+    </ng-container>
+    <!-- Date Column-->
+    <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.date | date:'medium'}}</mat-cell>
+    </ng-container>
 
-
-                        <td>{{user.gender}}</td>
-                        <td>{{user.date | date:'medium'}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <nav aria-label="Page navigation example" class="col-md-4 offset-md-3">
-                <ul class="pagination justify-content-end">
-                    <li class="page-item" [ngClass]="{'disabled': currentPage==1}" >
-                        <button class="page-link border-0" [disabled]="!currentPage==1" (click)=" getUsers(1)" tabindex="-1"><i class="fa fa-fast-backward fa-lg"></i></button>
-                    </li>
-                    <li class="page-item" [ngClass]="{'disabled': currentPage==1}" >
-                        <button class="page-link border-0" [disabled]="!currentPage==1 " (click)="getUsers(currentPage-1)"><i class="fa fa-step-backward fa-lg"></i></button>
-                    </li>
-                    <li class="page-item disabled">
-                        <button class="page-link border-0" href="#">{{currentPage}}</button>
-                    </li>
-                    <li class="page-item disabled">
-                        <button class="page-link border-0" href="#">of</button>
-                    </li>
-                    <li class="page-item disabled">
-                        <button class="page-link border-0" href="#">{{totalPage}}</button>
-                    </li>
-                    <li class="page-item" [ngClass]="{'disabled': currentPage==totalPage}">
-                        <button class="page-link border-0" [disabled]="!currentPage==totalPage" (click)=" getUsers(currentPage+1)" tabindex="-1"><i class="fa fa-step-forward fa-lg"></i></button>
-                    </li>
-                    <li class="page-item" [ngClass]="{'disabled': currentPage==totalPage}">
-                        <button class="page-link border-0" [disabled]="!currentPage==totalPage" (click)="getUsers(totalPage)"><i
-                                class="fa fa-fast-forward fa-lg"></i></button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>
+    <!-- Rows -->
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+</mat-table>
